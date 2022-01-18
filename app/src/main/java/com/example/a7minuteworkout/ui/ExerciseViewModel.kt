@@ -52,7 +52,7 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
     val exTimeString = Transformations.map(exTime) { it.toString() }
     val exTimeInt = Transformations.map(exTime) { it.toInt() }
 
-    private var exerciseList: ArrayList<Exercise>? = null
+    var exerciseList: List<Exercise>? = null
     private var currentExercisePosition = 0
 
     private val _exerciseName = MutableLiveData<String>()

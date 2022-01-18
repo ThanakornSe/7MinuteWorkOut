@@ -11,13 +11,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a7minuteworkout.R
+import com.example.a7minuteworkout.adapter.ExerciseRvAdapter
 import com.example.a7minuteworkout.databinding.FragmentExerciseBinding
 
 class ExerciseFragment : Fragment() {
 
     private lateinit var binding:FragmentExerciseBinding
     private lateinit var viewModel: ExerciseViewModel
+    private lateinit var adapter:ExerciseRvAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +35,10 @@ class ExerciseFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.lifecycleOwner = this
+
+        adapter = ExerciseRvAdapter(viewModel.exerciseList!!)
+        binding.rvExerciseStatus.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        binding.rvExerciseStatus.adapter = adapter
 
 
         viewModel.showEx.observe(viewLifecycleOwner, Observer {
