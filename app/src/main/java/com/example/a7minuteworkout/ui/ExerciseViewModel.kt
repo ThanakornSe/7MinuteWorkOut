@@ -1,0 +1,189 @@
+package com.example.a7minuteworkout.ui
+
+import android.app.Application
+import android.content.Context
+import android.media.MediaPlayer
+import android.net.Uri
+import android.os.CountDownTimer
+import android.speech.tts.TextToSpeech
+import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import com.example.a7minuteworkout.R
+import com.example.a7minuteworkout.model.Exercise
+import com.example.a7minuteworkout.util.Constance
+import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
+
+class ExerciseViewModel(private val application: Application) : ViewModel(),
+    TextToSpeech.OnInitListener {
+
+    private var tts: TextToSpeech? = null
+    private var player: MediaPlayer? = null
+
+    private var _restTime = MutableLiveData<Long>()
+    private val restTime: LiveData<Long> get() = _restTime
+
+    val restTimeString: LiveData<String> = Transformations.map(restTime) {
+        it.toString()
+    }
+    val restTimeInt = Transformations.map(restTime) {
+        it.toInt()
+    }
+
+    private var _showEx = MutableLiveData<Boolean>()
+    val showEx: LiveData<Boolean> get() = _showEx
+    private var _showRest = MutableLiveData<Boolean>()
+    val showRest: LiveData<Boolean> get() = _showRest
+    private var _showImage = MutableLiveData<Boolean>()
+    val showImage: LiveData<Boolean> get() = _showImage
+
+    private var restTimer: CountDownTimer? = null
+    private var timerDuration: Long = 10000L
+
+    private var exerciseTimer: CountDownTimer? = null
+    private var _exTime = MutableLiveData<Long>()
+    private val exTime: LiveData<Long> get() = _exTime
+
+    val exTimeString = Transformations.map(exTime) { it.toString() }
+    val exTimeInt = Transformations.map(exTime) { it.toInt() }
+
+    private var exerciseList: ArrayList<Exercise>? = null
+    private var currentExercisePosition = 0
+
+    private val _exerciseName = MutableLiveData<String>()
+    val exerciseName: LiveData<String> get() = _exerciseName
+    private val _nextExName = MutableLiveData<String>()
+    val nextExName: LiveData<String> get() = _nextExName
+
+    private var _imageSrc = MutableLiveData<Int>()
+    val imageSrc: LiveData<Int> get() = _imageSrc
+
+    init {
+        setRest()
+        _showEx.value = false
+        _showRest.value = true
+        _showImage.value = false
+        exerciseList = Constance.defaultExerciseList()
+        _nextExName.value = "UPCOMING EXERCISE:\n${exerciseList!![currentExercisePosition].name}"
+        tts = TextToSpeech(application, this)
+    }
+
+    fun setRest() {
+        if (restTimer != null) {
+            restTimer?.cancel()
+        }
+        startRestTimer()
+        _exerciseName.value = "Get Ready For"
+
+        try {
+            val soundURI =
+                Uri.parse("android.resource://com.example.a7minuteworkout/" + R.raw.press_start)
+            player = MediaPlayer.create(application, soundURI)
+            player?.isLooping = false
+            player?.start()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun startRestTimer() {
+        restTimer = object : CountDownTimer(timerDuration, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                _restTime.value = millisUntilFinished / 1000
+            }
+
+            override fun onFinish() {
+                _restTime.value = 0L
+                setExercise()
+                currentExercisePosition++
+                _showRest.value = false
+                _showEx.value = true
+                _showImage.value = true
+                Log.d("exposition", "onFinish: $currentExercisePosition")
+            }
+        }.start()
+
+    }
+
+    fun setExercise() {
+        if (exerciseTimer != null) {
+            exerciseTimer?.cancel()
+        }
+        startExerciseTimer()
+        _imageSrc.value = exerciseList!![currentExercisePosition].image
+        _exerciseName.value = exerciseList!![currentExercisePosition].name
+        tts!!.speak(_exerciseName.value, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    private fun startExerciseTimer() {
+        exerciseTimer = object : CountDownTimer(30000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                _exTime.value = millisUntilFinished / 1000
+            }
+
+            override fun onFinish() {
+                if (currentExercisePosition < exerciseList?.size!! - 1) {
+                    _exTime.value = 0L
+                    _showRest.value = true
+                    _showEx.value = false
+                    _showImage.value = false
+                    _nextExName.value =
+                        "UPCOMING EXERCISE:\n${exerciseList!![currentExercisePosition].name}"
+                    setRest()
+                } else {
+                    Toast.makeText(application, "Congratulation", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }.start()
+    }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            // set US English as language for tts
+            val result = tts?.setLanguage(Locale.US)
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "The Language specified is not supported!")
+            }
+
+        } else {
+            Log.e("TTS", "Initialization Failed!")
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        currentExercisePosition = 0
+        _nextExName.value = null
+
+        if (restTimer != null) {
+            restTimer!!.cancel()
+            _restTime.value = 0L
+            restTimer = null
+            _showRest.value = true
+        }
+
+        if (exerciseTimer != null) {
+            exerciseTimer!!.cancel()
+            _exTime.value = 0L
+            exerciseTimer = null
+            _showEx.value = false
+        }
+
+        if (tts != null) {
+            tts!!.stop()
+            tts!!.shutdown()
+        }
+
+        if (player != null) {
+            player!!.stop()
+        }
+    }
+
+}
