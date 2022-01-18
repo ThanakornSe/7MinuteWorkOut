@@ -36,7 +36,14 @@ class ExerciseFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
-        adapter = ExerciseRvAdapter(viewModel.exerciseList!!)
+        adapter = ExerciseRvAdapter()
+
+        viewModel.exerciseList.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
+
         binding.rvExerciseStatus.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.rvExerciseStatus.adapter = adapter
 
@@ -44,16 +51,23 @@ class ExerciseFragment : Fragment() {
         viewModel.showEx.observe(viewLifecycleOwner, Observer {
             if (it == true){
                 binding.flExerciseBar.visibility = View.VISIBLE
-            }else binding.flExerciseBar.visibility = View.GONE
+                binding.rvExerciseStatus.visibility = View.VISIBLE
+                adapter.notifyDataSetChanged()
+            }else {
+                binding.flExerciseBar.visibility = View.GONE
+                binding.rvExerciseStatus.visibility = View.GONE
+            }
         })
 
         viewModel.showRest.observe(viewLifecycleOwner, Observer {
             if (it == true){
                 binding.flRestBar.visibility = View.VISIBLE
                 binding.txtNextEx.visibility = View.VISIBLE
+                adapter.notifyDataSetChanged()
             }else {
                 binding.flRestBar.visibility = View.GONE
                 binding.txtNextEx.visibility = View.GONE
+
             }
         })
 

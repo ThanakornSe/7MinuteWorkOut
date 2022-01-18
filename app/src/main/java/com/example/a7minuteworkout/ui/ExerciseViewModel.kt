@@ -18,6 +18,7 @@ import com.example.a7minuteworkout.util.Constance
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.log
 
 class ExerciseViewModel(private val application: Application) : ViewModel(),
     TextToSpeech.OnInitListener {
@@ -43,7 +44,7 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
     val showImage: LiveData<Boolean> get() = _showImage
 
     private var restTimer: CountDownTimer? = null
-    private var timerDuration: Long = 10000L
+    private var timerDuration: Long = 1000L
 
     private var exerciseTimer: CountDownTimer? = null
     private var _exTime = MutableLiveData<Long>()
@@ -52,7 +53,9 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
     val exTimeString = Transformations.map(exTime) { it.toString() }
     val exTimeInt = Transformations.map(exTime) { it.toInt() }
 
-    var exerciseList: List<Exercise>? = null
+    private var _exerciseList = MutableLiveData<List<Exercise>>(Constance.defaultExerciseList())
+    val exerciseList:LiveData<List<Exercise>> get() = _exerciseList
+
     private var currentExercisePosition = 0
 
     private val _exerciseName = MutableLiveData<String>()
@@ -68,8 +71,7 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
         _showEx.value = false
         _showRest.value = true
         _showImage.value = false
-        exerciseList = Constance.defaultExerciseList()
-        _nextExName.value = "UPCOMING EXERCISE:\n${exerciseList!![currentExercisePosition].name}"
+        _nextExName.value = "UPCOMING EXERCISE:\n${exerciseList.value!![currentExercisePosition].name}"
         tts = TextToSpeech(application, this)
     }
 
@@ -99,12 +101,12 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
 
             override fun onFinish() {
                 _restTime.value = 0L
-                setExercise()
-                currentExercisePosition++
                 _showRest.value = false
                 _showEx.value = true
                 _showImage.value = true
-                Log.d("exposition", "onFinish: $currentExercisePosition")
+
+                setExercise()
+
             }
         }.start()
 
@@ -114,26 +116,30 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
         if (exerciseTimer != null) {
             exerciseTimer?.cancel()
         }
-        startExerciseTimer()
-        _imageSrc.value = exerciseList!![currentExercisePosition].image
-        _exerciseName.value = exerciseList!![currentExercisePosition].name
+        _imageSrc.value =  _exerciseList.value!![currentExercisePosition].image
+        _exerciseName.value =  _exerciseList.value!![currentExercisePosition].name
+        _exerciseList.value!![currentExercisePosition].isSelected = true
         tts!!.speak(_exerciseName.value, TextToSpeech.QUEUE_FLUSH, null, "")
+        startExerciseTimer()
     }
 
     private fun startExerciseTimer() {
-        exerciseTimer = object : CountDownTimer(30000, 1000) {
+        exerciseTimer = object : CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 _exTime.value = millisUntilFinished / 1000
             }
-
             override fun onFinish() {
-                if (currentExercisePosition < exerciseList?.size!! - 1) {
+
+                _exerciseList.value!![currentExercisePosition].isSelected = false
+                _exerciseList.value!![currentExercisePosition].isComplete = true
+
+                if (currentExercisePosition <  _exerciseList.value!!.size - 1) {
                     _exTime.value = 0L
                     _showRest.value = true
                     _showEx.value = false
                     _showImage.value = false
-                    _nextExName.value =
-                        "UPCOMING EXERCISE:\n${exerciseList!![currentExercisePosition].name}"
+                    currentExercisePosition++
+                    _nextExName.value = "UPCOMING EXERCISE:\n${ _exerciseList.value!![currentExercisePosition].name}"
                     setRest()
                 } else {
                     Toast.makeText(application, "Congratulation", Toast.LENGTH_SHORT).show()

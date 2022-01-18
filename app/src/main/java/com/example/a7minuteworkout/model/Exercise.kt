@@ -4,6 +4,6 @@ data class Exercise(
     val id:Int,
     val name:String,
     val image:Int,
-    val isComplete:Boolean,
-    val isSelected:Boolean
+    var isComplete:Boolean,
+    var isSelected:Boolean
 )
