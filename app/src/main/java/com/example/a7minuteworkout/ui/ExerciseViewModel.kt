@@ -1,13 +1,11 @@
 package com.example.a7minuteworkout.ui
 
 import android.app.Application
-import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -17,8 +15,6 @@ import com.example.a7minuteworkout.model.Exercise
 import com.example.a7minuteworkout.util.Constance
 import java.lang.Exception
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.math.log
 
 class ExerciseViewModel(private val application: Application) : ViewModel(),
     TextToSpeech.OnInitListener {
@@ -52,9 +48,10 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
     }
 
     private var restTimer: CountDownTimer? = null
-    private var timerDuration: Long = 1000L
+    private var restTimerDuration: Long = 10000L
 
     private var exerciseTimer: CountDownTimer? = null
+    private var exerciseTimerDuration: Long = 30000L
     private var _exTime = MutableLiveData<Long>()
     private val exTime: LiveData<Long> get() = _exTime
 
@@ -102,7 +99,7 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
     }
 
     private fun startRestTimer() {
-        restTimer = object : CountDownTimer(timerDuration, 1000) {
+        restTimer = object : CountDownTimer(restTimerDuration, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 _restTime.value = millisUntilFinished / 1000
             }
@@ -132,7 +129,7 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
     }
 
     private fun startExerciseTimer() {
-        exerciseTimer = object : CountDownTimer(3000, 1000) {
+        exerciseTimer = object : CountDownTimer(exerciseTimerDuration, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 _exTime.value = millisUntilFinished / 1000
             }
