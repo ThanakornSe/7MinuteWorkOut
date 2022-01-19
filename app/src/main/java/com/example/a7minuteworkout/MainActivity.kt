@@ -44,6 +44,5 @@ class MainActivity : AppCompatActivity() {
             }
             else -> navController.navigateUp()
         }
-        //return navController.navigateUp()
     }
 }
