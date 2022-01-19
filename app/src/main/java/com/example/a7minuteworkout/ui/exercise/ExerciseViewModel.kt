@@ -1,4 +1,4 @@
-package com.example.a7minuteworkout.ui
+package com.example.a7minuteworkout.ui.exercise
 
 import android.app.Application
 import android.media.MediaPlayer

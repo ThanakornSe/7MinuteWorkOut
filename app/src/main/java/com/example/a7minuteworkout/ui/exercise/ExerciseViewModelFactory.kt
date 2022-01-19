@@ -1,7 +1,6 @@
-package com.example.a7minuteworkout.ui
+package com.example.a7minuteworkout.ui.exercise
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 

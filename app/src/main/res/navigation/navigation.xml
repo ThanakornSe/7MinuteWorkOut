@@ -13,10 +13,13 @@
         <action
             android:id="@+id/action_titleFragment_to_exerciseFragment"
             app:destination="@id/exerciseFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_bmi"
+            app:destination="@id/bmi" />
     </fragment>
     <fragment
         android:id="@+id/exerciseFragment"
-        android:name="com.example.a7minuteworkout.ui.ExerciseFragment"
+        android:name="com.example.a7minuteworkout.ui.exercise.ExerciseFragment"
         android:label="Exercise"
         tools:layout="@layout/fragment_exercise">
         <action
@@ -41,4 +44,9 @@
             app:popUpTo="@id/titleFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/bmi"
+        android:name="com.example.a7minuteworkout.ui.bmi.Bmi"
+        android:label="Calculate BMI"
+        tools:layout="@layout/fragment_bmi" />
 </navigation>

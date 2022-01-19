@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.a7minuteworkout.ui.ExerciseViewModel" />
+            type="com.example.a7minuteworkout.ui.exercise.ExerciseViewModel" />
 
     </data>
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        tools:context=".ui.ExerciseFragment">
+        tools:context=".ui.exercise.ExerciseFragment">
 
 <!--        <androidx.appcompat.widget.Toolbar-->
 <!--            android:id="@+id/toolbarExercise"-->

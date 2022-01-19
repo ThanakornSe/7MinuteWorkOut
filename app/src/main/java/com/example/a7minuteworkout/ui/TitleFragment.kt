@@ -28,6 +28,10 @@ class TitleFragment : Fragment() {
             this.findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToExerciseFragment())
         }
 
+        binding.flBMI.setOnClickListener {
+            this.findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToBmi())
+        }
+
         return binding.root
     }
 

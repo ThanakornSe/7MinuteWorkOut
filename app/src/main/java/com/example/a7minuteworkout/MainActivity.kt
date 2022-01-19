@@ -3,15 +3,13 @@ package com.example.a7minuteworkout
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.a7minuteworkout.databinding.ActivityMainBinding
 import com.example.a7minuteworkout.databinding.DialogCustomBackConfirmationBinding
-import com.example.a7minuteworkout.ui.ExerciseFragmentDirections
+import com.example.a7minuteworkout.ui.exercise.ExerciseFragmentDirections
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
