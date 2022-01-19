@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a7minuteworkout.R
 import com.example.a7minuteworkout.adapter.ExerciseRvAdapter
@@ -79,6 +80,14 @@ class ExerciseFragment : Fragment() {
 
         viewModel.imageSrc.observe(viewLifecycleOwner, Observer {
             binding.ivWorkout.setImageResource(it)
+        })
+
+        viewModel.navigateToFinished.observe(viewLifecycleOwner, Observer {
+            if (it == true){
+                this.findNavController().navigate(ExerciseFragmentDirections.actionExerciseFragmentToFinished())
+                viewModel.doneNavigateToFinished()
+            }
+
         })
 
 

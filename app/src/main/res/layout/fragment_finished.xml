@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="10dp"
+        tools:context=".ui.Finished">
+
+        <TextView
+            android:id="@+id/txt_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="END"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp" />
+
+        <FrameLayout
+            android:id="@+id/fl_check"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/txt_end"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="30dp"
+            android:background="@drawable/item_circular_color_accent_border">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="@color/colorAccent" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/txt_congratulation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fl_check"
+            android:layout_centerHorizontal="true"
+            android:text="Congratulations! \n You have done the workout!"
+            android:textAlignment="center"
+            android:textColor="#6c757d"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_finished"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_congratulation"
+            android:layout_marginTop="30dp"
+            android:text="FINISH" />
+
+
+    </RelativeLayout>
+</layout>
