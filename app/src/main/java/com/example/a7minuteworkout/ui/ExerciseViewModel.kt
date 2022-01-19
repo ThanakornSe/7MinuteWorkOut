@@ -38,10 +38,18 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
 
     private var _showEx = MutableLiveData<Boolean>()
     val showEx: LiveData<Boolean> get() = _showEx
+
     private var _showRest = MutableLiveData<Boolean>()
     val showRest: LiveData<Boolean> get() = _showRest
+
     private var _showImage = MutableLiveData<Boolean>()
     val showImage: LiveData<Boolean> get() = _showImage
+
+    private var _navigateToFinished = MutableLiveData<Boolean>()
+    val navigateToFinished: LiveData<Boolean> get() = _navigateToFinished
+    fun doneNavigateToFinished() {
+        _navigateToFinished.value = false
+    }
 
     private var restTimer: CountDownTimer? = null
     private var timerDuration: Long = 1000L
@@ -142,7 +150,7 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
                     _nextExName.value = "UPCOMING EXERCISE:\n${ _exerciseList.value!![currentExercisePosition].name}"
                     setRest()
                 } else {
-                    Toast.makeText(application, "Congratulation", Toast.LENGTH_SHORT).show()
+                    _navigateToFinished.value = true
                 }
             }
         }.start()
