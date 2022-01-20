@@ -32,6 +32,10 @@ class TitleFragment : Fragment() {
             this.findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToBmi())
         }
 
+        binding.flHistory.setOnClickListener {
+            this.findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToHistory())
+        }
+
         return binding.root
     }
 

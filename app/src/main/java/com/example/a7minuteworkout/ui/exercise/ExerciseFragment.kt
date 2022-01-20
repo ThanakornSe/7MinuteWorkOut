@@ -108,7 +108,7 @@ class ExerciseFragment : Fragment() {
         val dialogBinding = DialogCustomBackConfirmationBinding.inflate(layoutInflater)
         customDialog.setContentView(dialogBinding.root)
         customDialog.setCanceledOnTouchOutside(false)
-        dialogBinding.btnYes.setOnClickListener { this.findNavController().navigate(ExerciseFragmentDirections.actionExerciseFragmentToTitleFragment())
+        dialogBinding.btnYes.setOnClickListener {this.findNavController().navigate(ExerciseFragmentDirections.actionExerciseFragmentToTitleFragment())
         customDialog.dismiss() }
         dialogBinding.btnNo.setOnClickListener { customDialog.dismiss() }
         customDialog.show()
