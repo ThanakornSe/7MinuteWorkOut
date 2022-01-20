@@ -13,7 +13,7 @@ class BmiViewModel : ViewModel() {
     private var _bmi = MutableLiveData<Double>()
     private val bmi: LiveData<Double> get() = _bmi
     val bmiToString = Transformations.map(bmi) {
-        it.toBigDecimal().setScale(2,RoundingMode.HALF_EVEN).toString()
+        it.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
     }
 
     private var _bmiLabel = MutableLiveData<String>()
@@ -25,11 +25,29 @@ class BmiViewModel : ViewModel() {
     private var _showBMI = MutableLiveData<Boolean>()
     val showBMI: LiveData<Boolean> get() = _showBMI
 
+//    private var _showUsUnit = MutableLiveData<Boolean>()
+//    val showUsUnit: LiveData<Boolean> get() = _showUsUnit
+//
+//    private var _showMetricUnit = MutableLiveData<Boolean>()
+//    val showMetricUnit: LiveData<Boolean> get() = _showMetricUnit
 
-    fun calculateBMI(height: Double, weight: Double) {
+
+    fun calculateMetricBMI(height: Double, weight: Double) {
         _bmi.value = weight / height.pow(2)
 
         disPlayBMIResult(weight / height.pow(2))
+        _showBMI.value = true
+    }
+
+    fun calculateUsBMI(heightFeet: Double, heightInch: Double, weight: Double) {
+        // Here the Height Feet and Inch values are merged and multiplied by 12 for converting it to inches.
+        // This is the Formula for US UNITS result.
+        // Reference Link : https://www.cdc.gov/healthyweight/assessing/bmi/childrens_bmi/childrens_bmi_formula.html
+        val heightValue = (heightFeet * 12) + heightInch
+        val bmi = 703 * (weight / heightValue.pow(2))
+        _bmi.value = bmi
+
+        disPlayBMIResult(bmi)
         _showBMI.value = true
     }
 

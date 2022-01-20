@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_titleFragment_to_bmi"
             app:destination="@id/bmi" />
+        <action
+            android:id="@+id/action_titleFragment_to_history"
+            app:destination="@id/history" />
     </fragment>
     <fragment
         android:id="@+id/exerciseFragment"
@@ -30,7 +33,7 @@
         <action
             android:id="@+id/action_exerciseFragment_to_titleFragment"
             app:destination="@id/titleFragment"
-            app:popUpTo="@id/exerciseFragment"
+            app:popUpTo="@id/titleFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -49,4 +52,9 @@
         android:name="com.example.a7minuteworkout.ui.bmi.Bmi"
         android:label="Calculate BMI"
         tools:layout="@layout/fragment_bmi" />
+    <fragment
+        android:id="@+id/history"
+        android:name="com.example.a7minuteworkout.ui.history.History"
+        android:label="History"
+        tools:layout="@layout/history_fragment"/>
 </navigation>

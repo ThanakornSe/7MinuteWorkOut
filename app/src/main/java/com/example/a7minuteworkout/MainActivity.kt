@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
                 customDialog.setCanceledOnTouchOutside(false)
                 dialogBinding.btnYes.setOnClickListener {navController.navigate(
                     ExerciseFragmentDirections.actionExerciseFragmentToTitleFragment())
-                    customDialog.dismiss() }
+                    customDialog.dismiss()
+                }
                 dialogBinding.btnNo.setOnClickListener { customDialog.dismiss() }
                 customDialog.show()
                 true

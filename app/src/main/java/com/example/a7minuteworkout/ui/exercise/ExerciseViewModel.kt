@@ -65,8 +65,8 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
 
     private val _exerciseName = MutableLiveData<String>()
     val exerciseName: LiveData<String> get() = _exerciseName
-    private val _nextExName = MutableLiveData<String>()
-    val nextExName: LiveData<String> get() = _nextExName
+    private val _nextExName = MutableLiveData<String?>()
+    val nextExName: LiveData<String?> get() = _nextExName
 
     private var _imageSrc = MutableLiveData<Int>()
     val imageSrc: LiveData<Int> get() = _imageSrc
@@ -146,6 +146,7 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
                     currentExercisePosition++
                     _nextExName.value = "UPCOMING EXERCISE:\n${ _exerciseList.value!![currentExercisePosition].name}"
                     setRest()
+                    _navigateToFinished.value = true
                 } else {
                     _navigateToFinished.value = true
                 }
