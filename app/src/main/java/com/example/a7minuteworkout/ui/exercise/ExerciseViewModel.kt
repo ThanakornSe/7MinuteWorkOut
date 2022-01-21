@@ -146,7 +146,6 @@ class ExerciseViewModel(private val application: Application) : ViewModel(),
                     currentExercisePosition++
                     _nextExName.value = "UPCOMING EXERCISE:\n${ _exerciseList.value!![currentExercisePosition].name}"
                     setRest()
-                    _navigateToFinished.value = true
                 } else {
                     _navigateToFinished.value = true
                 }
