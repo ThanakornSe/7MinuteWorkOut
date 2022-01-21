@@ -44,7 +44,7 @@
         <action
             android:id="@+id/action_finished_to_titleFragment"
             app:destination="@id/titleFragment"
-            app:popUpTo="@id/titleFragment"
+            app:popUpTo="@id/finished"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
