@@ -8,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a7minuteworkout.R
+import com.example.a7minuteworkout.WorkOutApplication
 import com.example.a7minuteworkout.adapter.ExerciseRvAdapter
 import com.example.a7minuteworkout.databinding.DialogCustomBackConfirmationBinding
 import com.example.a7minuteworkout.databinding.FragmentExerciseBinding
@@ -20,8 +23,12 @@ import com.example.a7minuteworkout.databinding.FragmentExerciseBinding
 class ExerciseFragment : Fragment() {
 
     private lateinit var binding: FragmentExerciseBinding
-    private lateinit var viewModel: ExerciseViewModel
+    //private lateinit var viewModel: ExerciseViewModel
     private lateinit var adapter: ExerciseRvAdapter
+
+    private val viewModel:ExerciseViewModel by viewModels {
+        ExerciseViewModelFactory((requireNotNull(activity).application))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,13 +36,13 @@ class ExerciseFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_exercise, container, false)
 
-        val application = requireNotNull(activity).application
-        val factory = ExerciseViewModelFactory(application)
-        viewModel = ViewModelProvider(this, factory)[ExerciseViewModel::class.java]
+//        val application = requireNotNull(activity).application
+//        val factory = ExerciseViewModelFactory(application)
+//        viewModel = ViewModelProvider(this, factory)[ExerciseViewModel::class.java]
 
         binding.viewModel = viewModel
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         adapter = ExerciseRvAdapter()
 

@@ -3,21 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable-v24/item_circular_thin_color_accent_border.xml" value="0.37864583333333335" />
+        <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable-v24/item_circular_thin_color_accent_border.xml" value="0.22" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/circular_progress_bar.xml" value="0.1" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/circular_progress_grey.xml" value="0.1" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/circular_progressbar.xml" value="0.1" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/item_circular_color_accent_background.xml" value="0.1" />
-        <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/item_circular_color_accent_border.xml" value="0.37864583333333335" />
+        <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/item_circular_color_accent_border.xml" value="0.22" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/item_circular_color_gray_background.xml" value="0.1398148148148148" />
-        <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/item_color_accent_border_ripple.xml" value="0.37864583333333335" />
+        <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/item_color_accent_border_ripple.xml" value="0.22" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/radio_group_tab_background.xml" value="0.1" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/unit_tab_selector.xml" value="0.1" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/drawable/unit_tab_text_color_selector.xml" value="0.1" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/layout/activity_main.xml" value="0.3625" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/layout/dialog_custom_back_confirmation.xml" value="0.3625" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/layout/fragment_bmi.xml" value="0.25" />
-        <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/layout/fragment_exercise.xml" value="0.25" />
+        <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/layout/fragment_exercise.xml" value="0.4836692147324531" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/layout/fragment_finished.xml" value="0.25" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/layout/fragment_title.xml" value="0.3625" />
         <entry key="..\:/Android Project/AndroidStudioProjects/7MinuteWorkOut/app/src/main/res/layout/history_fragment.xml" value="0.3484375" />
